@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ModalController, NavController, PopoverController } from '@ionic/angular';
+import { ModalController, NavController, Platform, PopoverController } from '@ionic/angular';
+import { StudentService } from '../student.service';
 import { TestPopComponent } from '../test-pop/test-pop.component';
 
 @Component({
@@ -11,14 +12,14 @@ export class HomePage implements OnInit, OnDestroy {
   showList = true
   title = "Home Page"
   list = [
-    "gokul",
+    "Krishna",
     "sathish",
     "Nagarjun",
     "Vishnu"
   ]
   listObjects = [
     {
-      name: "gokul",
+      name: "Krishna Gr",
       age: "25"
     },
     {
@@ -28,21 +29,30 @@ export class HomePage implements OnInit, OnDestroy {
     {
       name: "Nagarjun",
       age: "27",
-      city:"Bangalore"
+      city: "Bangalore"
     }
   ]
   constructor(
     private navCtrl: NavController,
     private popoverController: PopoverController,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private studentService: StudentService,
+    private platform: Platform
   ) {
-    console.log("HomePage Constructor Executed")
+    console.log("Platform", this.platform)
+
+    if (this.platform.is('android')) {
+      console.log("In Android Platform")
+    }
+
+    console.log(studentService.getStudent())
+    // console.log("HomePage Constructor Executed")
     // this.printNumbers()
     // this.showPopOver()
 
-    setTimeout(() => {
-      this.title = "Modified"
-    }, 3000);
+    // setTimeout(() => {
+    //   this.title = "Modified"
+    // }, 3000);
   }
 
   async showPopOver(ev) {
